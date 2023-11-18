@@ -9,10 +9,10 @@ Proof-of-concept for web test automation framework starter kit using using Java,
 
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-- [Java 17.+](https://www.oracle.com/java/technologies/downloads/))
-- [Cucumber 7.+](https://cucumber.io/docs/installation/))
-- [Selenium 4.+](https://www.selenium.dev/downloads/))
-- [Selenium Grid 4.+](https://www.selenium.dev/downloads/))
+- [Java 17.+](https://www.oracle.com/java/technologies/downloads/)
+- [Cucumber 7.+](https://cucumber.io/docs/installation/)
+- [Selenium 4.+](https://www.selenium.dev/downloads/)
+- [Selenium Grid 4.+](https://www.selenium.dev/downloads/)
 
 ## Features
 
