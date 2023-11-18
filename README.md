@@ -1,6 +1,6 @@
-# About {{ Name }}
+# About
 
-ERNI Academy StarterKit, PoC, or Gidelines. This is an about description of your repository.
+Proof-of-concept for web test automation framework starter kit using using Java, Cucumber, Selenium, and Page-Object model design pattern. This POC will be particularly advantageous for projects which are using the Java ecosystem.
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -9,14 +9,17 @@ ERNI Academy StarterKit, PoC, or Gidelines. This is an about description of your
 
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-- [Tools A](https://example.com)
-- [Framework B](https://example.com)
-- [Project C](https://example.com)
+- [Java 17.+](https://www.oracle.com/java/technologies/downloads/))
+- [Cucumber 7.+](https://cucumber.io/docs/installation/))
+- [Selenium 4.+](https://www.selenium.dev/downloads/))
+- [Selenium Grid 4.+](https://www.selenium.dev/downloads/))
 
 ## Features
 
-- Be awesome
-- Make things faster
+- Browser test automation
+- Behavior-driven approach
+- Parallel test execution
+- Reports generation after test execution 
 
 ## Getting Started
 
