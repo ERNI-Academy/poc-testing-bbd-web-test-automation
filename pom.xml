@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>BDDTestFramework</groupId>
+  <artifactId>BDDTestFramework</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>BDDTestFramework</name>
+
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <cucumber.version>7.13.0</cucumber.version>
+      <selenium.version>4.11.0</selenium.version>
+      <webdrivermanager.version>5.3.2</webdrivermanager.version>  
+      <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+      <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+      <maven.compiler.source.version>17</maven.compiler.source.version>
+      <maven.compiler.target.version>17</maven.compiler.target.version>
+      <org.slf4j.version>1.7.32</org.slf4j.version>
+      <org.log4j.version>1.2.17</org.log4j.version>
+      <poi.version>5.2.0</poi.version>
+  </properties>
+
+  <dependencies>
+	<!-- For Cucumber dependencies -->
+	<dependency>
+		<groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>${cucumber.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>io.cucumber</groupId>
+		<artifactId>cucumber-testng</artifactId>
+		<version>${cucumber.version}</version>
+        <scope>test</scope>
+	</dependency>
+    <dependency>
+		<groupId>org.seleniumhq.selenium</groupId>
+		<artifactId>selenium-java</artifactId>
+		<version>${selenium.version}</version>
+	</dependency>
+    <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>${webdrivermanager.version}</version>
+    </dependency> 
+	<dependency>
+		<groupId>tech.grasshopper</groupId>
+		<artifactId>extentreports-cucumber7-adapter</artifactId>
+		<version>1.13.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.aventstack</groupId>
+		<artifactId>extentreports</artifactId>
+		<version>5.0.8</version>
+	</dependency>	
+		
+    <!--Added lombok depedency to resolve the jdk compiler issue -->
+    <dependency>
+	  	<groupId>org.projectlombok</groupId>
+	  	<artifactId>lombok</artifactId>
+	  	<version>1.18.22</version>
+	</dependency>
+	<dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.7</version>
+    </dependency>
+    
+    <!-- For Excel manipulation -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>${poi.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>
+	    <version>${poi.version}</version>
+	</dependency>
+	
+	<!-- For slfj log4j setup -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>${org.slf4j.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>${org.slf4j.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>${org.log4j.version}</version>
+	</dependency>
+  </dependencies>
+
+  <build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>${maven.surefire.plugin.version}</version>
+			<configuration>
+				<properties>
+        			<property>
+	            		<name>dataproviderthreadcount</name>
+	            		<value>20</value>
+        			</property>
+        			<parallel>methods</parallel>
+               		<useUnlimitedThreads>true</useUnlimitedThreads>
+				</properties>
+				<suiteXmlFiles>
+					<suiteXmlFile>test-suite/testng.xml</suiteXmlFile>
+				</suiteXmlFiles>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>${maven.compiler.plugin.version}</version>
+			<configuration>
+				<source>${maven.compiler.source.version}</source> 
+                <target>${maven.compiler.target.version}</target>
+				<encoding>UTF-8</encoding>
+			</configuration>
+		</plugin>
+	</plugins>
+  </build>
+  
+</project>
