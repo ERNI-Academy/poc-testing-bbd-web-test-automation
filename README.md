@@ -7,8 +7,6 @@ Proof-of-concept for web test automation framework starter kit using using Java,
 
 ## Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 - [Java 17.+](https://www.oracle.com/java/technologies/downloads/)
 - [Cucumber 7.+](https://cucumber.io/docs/installation/)
 - [Selenium 4.+](https://www.selenium.dev/downloads/)
@@ -23,33 +21,123 @@ This section should list any major frameworks that you built your project using.
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
+Installation instructions by running:
 
-## Prerequisites
+1. Clone the repository
 
-This is an example of how to list things you need to use the software and how to install them.
+2. Build and install using Maven command (clean and install)
 
-## Installation
+3. Implement Page objects corresponding to the pages of the Application under Test.
+   
+   a. Create java package under src/test/java (e.g. com.erni.pageobjects.sprout)
+   
+   b. Create a Page Object java class, make sure to extend PageBase class to inherit the Core libraries instances.
+    ```JS
+    public class LoginPO extends PageBase{
+    ```
 
-Installation instructions {{ Name }} by running:
+    c. Add page web elements by using annotation @FindBy
+      ```JS
+      @FindBy(how = How.ID, using = "txtUsername") 
+      WebElement txtUserName;
+	
+      @FindBy(how = How.ID, using = "txtPassword") 
+      WebElement txtPassword;
+	
+      @FindBy(how = How.ID, using = "btnLogIn") 
+      WebElement btnLogin;
+      ```
+   d. Call the Selenium’s PageFactory initElements to initiate the page web elements
+      ```JS
+      PageFactory.initElements(driver, this);
+      ```
+   e. Add the page actions as java functions. Use the built-in functions which are inherited from PageBase class.
+      ```JS
+      public LoginPO enterUsername(String userName) {
+		   try {
+			   input.sendKeys(txtUserName, userName);
+		   } catch(Exception e) {
+			   logger.error("Error occurred in enterUsername()", e);
+		   }
+		   return this;
+	   }
+      ```
 
-1. Clone the repo
+4. Create Features which will serve as the test cases/scenarios for this test suite
 
-   ```sh
-   git clone https://github.com/ERNI-Academy/Project-Name.git
+   a. Create a file directory under src/test/resources. This will be the folder of all the AUT test scenarios
+   
+   b. Create a feature file. File extension should be .feature
+   
+   c. Create test scenarios. Observe the Gherkin template (Given-When-Then)
+      ```JS
+      Feature: Login verification
+         Features include all the scenarios for login
+
+      Scenario: Sprout login
+          Given current url is "https://erni.hrhub.ph/Login.aspx"
+          When user enters valid username and password
+          And user clicks login button
+          Then login successful
+      ```
+5. Create the Feature’s step definitions
+   
+   a. Create java package under src/test/java (e.g. com.erni.stepdefinitions)
+
+   b. Create a Step Definition java class, make sure to extend StepDefinition parent class to inherit the common functions used for step definitions.
+      ```JS
+      public class LoginDefinition extends StepDefinition{
+      ```
+   c. Create instance variables to declare the path for the test data
+      ```JS
+      private static final String EXCEL_FILE_PATH = "test-data/test-data-sprout.xlsx";
+      private static final String EXCEL_SHEET_NAME = "Login";
+      ```
+   d. Create step definitions
+      ```JS
+      @Given("current url is {string}")
+	   public void isUrlCorrect(String url) {
+        try {
+            loginPO.isUrlCorrect(url);
+        } catch (Exception e) {
+            logger.error("Error occurred in isUrlCorrect()", e);
+        }
+    }
+
+   @When("enter password {string}")
+	public void enterPassword(String password) {
+		try {
+			loginPO.enterPassword(password);
+		} catch (Exception e) {
+            logger.error("Error occurred in enterPassword()", e);
+		}
+	}
+	
+   @Then("login successful")
+	public void isLoginSuccessful() {
+		LoginPO loginPO = pageObjectFactory.createLoginPO();
+		
+		try {
+			loginPO.isLoginSuccessful();
+		} catch (Exception e) {
+            logger.error("Error occurred in clickLoginBtn()", e);
+            throw e;
+		}
+	}
    ```
 
-2. Install packages
+6. Update Hooks class (Hooks.java). Implement setup and teardown. Use @Before annotation for setup and @After for teardown. Note that the method marked with @Before annotation will be invoked before executing the test scenario/feature, whereas the one annotated with @After will be invoked immediately after the execution of the test scenario/feature.
 
-    ```sh
-    npm install
-    ```
+7. Define the test configuration by updating the src/test/resources/config.properties. Feel free to add specific configurations in that file.
+   ```JS
+   browser=googlechrome
+   hubAddress=http://localhost:4444/wd/hub
+   baseUrl=https://example.com/
+   ```
+   
+8. Create a Cucumber test runner and add it in TestNG.xml which resides /test-suite folder. TestNG.xml is test configuration of TestNG engine.
 
-3. Configure
-
-    ```JS
-    const API_KEY = 'ENTER YOUR API';
-    ```
+9. Selenium Grid’s Hub and Node which are included in the cloned code base have default configuration to run in the localhost. Feel free to setup the Hub and Nodes configuration to run in your desired environment.
 
 ## Contributing
 
@@ -59,7 +147,7 @@ Please see our [Contribution Guide](CONTRIBUTING.md) to learn how to contribute.
 
 ![MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-(LICENSE) © {{Year}} [ERNI - Swiss Software Engineering](https://www.betterask.erni)
+Copyright  © 2023 [ERNI - Swiss Software Engineering](https://www.betterask.erni)
 
 ## Code of conduct
 
