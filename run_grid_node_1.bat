@@ -1,0 +1,1 @@
+java -jar selenium-server-4.11.0.jar node --port 5555 --selenium-manager true
